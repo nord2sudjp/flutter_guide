@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './question.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         //body: Text('This is my default text!'),
         body: Column(
           children: [
-            Text(questions[_questionIndex]),
+            Question(questions[_questionIndex]),
             RaisedButton(child: Text('Answer 1'), onPressed: _answerQuestion),
             RaisedButton(child: Text('Answer 2'), onPressed: _answerQuestion),
             RaisedButton(child: Text('Answer 3'), onPressed: _answerQuestion),
