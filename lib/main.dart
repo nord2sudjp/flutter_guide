@@ -14,9 +14,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final questions = const [
+    {
+      'questionText': 'What is your favorite color?',
+      'answers': ['Black', 'Red', 'Green', 'White']
+    },
+    {
+      'questionText': 'What is your favorite animal?',
+      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion']
+    },
+    {
+      'questionText': 'What is your favorite country?',
+      'answers': ['Japan', 'England', 'Russia', 'USA']
+    },
+  ];
+
   var _questionIndex = 0;
 
   void _answerQuestion() {
+    if (_questionIndex < questions.length) {
+      print('We have more questions');
+    }
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -25,21 +43,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   build(BuildContext context) {
-    var questions = [
-      {
-        'questionText': 'What is your favorite color?',
-        'answers': ['Black', 'Red', 'Green', 'White']
-      },
-      {
-        'questionText': 'What is your favorite animal?',
-        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion']
-      },
-      {
-        'questionText': 'What is your favorite country?',
-        'answers': ['Japan', 'England', 'Russia', 'USA']
-      },
-    ];
-
     //return MaterialApp(home: Text('Hello!'));
     return MaterialApp(
       home: Scaffold(
@@ -47,15 +50,17 @@ class _MyAppState extends State<MyApp> {
           title: Text('My First App'),
         ),
         //body: Text('This is my default text!'),
-        body: Column(
-          children: [
-            Question(questions[_questionIndex]['questionText']),
-            ...(questions[_questionIndex]['answers'] as List<String>)
-                .map((ans) {
-              return Answer(_answerQuestion, ans);
-            }).toList()
-          ],
-        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: [
+                  Question(questions[_questionIndex]['questionText']),
+                  ...(questions[_questionIndex]['answers'] as List<String>)
+                      .map((ans) {
+                    return Answer(_answerQuestion, ans);
+                  }).toList()
+                ],
+              )
+            : Center(child: Text("No more question")),
       ),
     );
   }
