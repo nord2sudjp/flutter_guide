@@ -26,8 +26,18 @@ class _MyAppState extends State<MyApp> {
   @override
   build(BuildContext context) {
     var questions = [
-      'What is your favorite color?',
-      'What is your favorite animal?'
+      {
+        'questionText': 'What is your favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White']
+      },
+      {
+        'questionText': 'What is your favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion']
+      },
+      {
+        'questionText': 'What is your favorite country?',
+        'answers': ['Japan', 'England', 'Russia', 'USA']
+      },
     ];
 
     //return MaterialApp(home: Text('Hello!'));
@@ -39,10 +49,11 @@ class _MyAppState extends State<MyApp> {
         //body: Text('This is my default text!'),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            Question(questions[_questionIndex]['questionText']),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((ans) {
+              return Answer(_answerQuestion, ans);
+            }).toList()
           ],
         ),
       ),
