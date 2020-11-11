@@ -4,9 +4,21 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
   void answerQuestion() {
-    print('Answer Choose');
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    print(questionIndex);
   }
 
   @override
@@ -25,7 +37,7 @@ class MyApp extends StatelessWidget {
         //body: Text('This is my default text!'),
         body: Column(
           children: [
-            Text('The questions!'),
+            Text(questions[questionIndex]),
             RaisedButton(child: Text('Answer 1'), onPressed: answerQuestion),
             RaisedButton(child: Text('Answer 2'), onPressed: answerQuestion),
             RaisedButton(child: Text('Answer 3'), onPressed: answerQuestion),
